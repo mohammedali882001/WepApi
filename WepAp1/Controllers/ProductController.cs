@@ -25,6 +25,19 @@ namespace WepAp1.Controllers
             return Ok(products);
         }
 
+        [HttpGet("{id:int}")]
+        public IActionResult GeByIdt(int id)
+        {
+            Product product = productRepo.GetById(id);
+            if (product == null)
+            {
+                return NotFound();
+            }else
+            {
+                return Ok(product);
+            }
+        }
+
         [HttpPost]
         public IActionResult AddProduct(ProductViewModel productVM)
         {
@@ -36,7 +49,51 @@ namespace WepAp1.Controllers
                     Price=productVM.Price ,
                     Quantity=productVM.Quantity ,
                 };
+
+                productRepo.Insert(product);
+                productRepo.Save();
+
+                return Ok(product);
+            }
+
+            return BadRequest("Error");
+        }
+
+        [HttpDelete("{id:int}")]
+        public IActionResult DeleteProduct(int id)
+        {
+            Product product = productRepo.GetById(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                productRepo.Delete(id);
+                productRepo.Save();
+                return NoContent();
             }
         }
+
+        [HttpPut]
+        public IActionResult Update(int id ,  ProductViewModel UpdatedProduct)
+        {
+            Product product = productRepo.GetById (id);
+            if(product == null)
+            {
+                return BadRequest("Error");
+            }else
+            {
+                product.Name = UpdatedProduct.Name;
+                product.Description = UpdatedProduct.Description;
+                product.Price = UpdatedProduct.Price;
+                product.Quantity = UpdatedProduct.Quantity;
+                productRepo.Update(product);
+                productRepo.Save();
+
+                return NoContent();
+            }
+        }
+
     }
 }

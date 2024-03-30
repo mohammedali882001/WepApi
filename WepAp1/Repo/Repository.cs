@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 
 namespace WepAp1.Models
@@ -13,7 +14,7 @@ namespace WepAp1.Models
        public void Delete(int id)
         {
             T t = GetById(id);
-            Update(t);
+            context.Remove(t);
         }
 
        public List<T> GetAll()//string include=null)
