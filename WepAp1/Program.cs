@@ -28,6 +28,13 @@ namespace WepAp1
 
                 );
 
+            builder.Services.AddCors(options => {
+                options.AddPolicy("MyPolicy",
+                                  policy => policy.AllowAnyMethod()
+                                  .AllowAnyOrigin()
+                                  .AllowAnyHeader());
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -36,7 +43,7 @@ namespace WepAp1
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.UseCors("MyPolicy");
             app.UseAuthorization();
 
 
