@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace WepAp1.Models
 {
-    public class Context : DbContext
+    public class Context : IdentityDbContext<ApplicationUser>
     {
         public Context(DbContextOptions<Context> options) : base(options)
         {

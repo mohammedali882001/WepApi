@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TestingMVC.Repo;
 using WepAp1.Models;
@@ -18,6 +19,7 @@ namespace WepAp1.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult GetAll()
         {
             List<Product> products = productRepo.GetAll();
